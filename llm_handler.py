@@ -1,10 +1,12 @@
 from datetime import datetime, timezone, timedelta
 from sentence_transformers import SentenceTransformer
 from telethon import TelegramClient
+from session_manager import SessionManager
 import httpx
 import os
 
 SIMILARITY_THRESHOLD = 0.352
+session_mgr = SessionManager()
 
 class LLMHandler:
     def __init__(self, model_name, qdrant_client, llm_url, llm_model, telegram_client):
@@ -89,7 +91,17 @@ class LLMHandler:
                 response.raise_for_status()
                 data = response.json()
                 reply = data['choices'][0]['message']['content']
+
+                # ✅ Check if the session still exists before replying
+                if not await session_mgr.exists(sender.id):
+                    print(f"[LLM] Session canceled before response could be sent to {sender.id}. Suppressing reply.")
+                    return
+
                 await event.respond(f"[AI]: {reply.strip()}")
+
         except httpx.HTTPError as e:
             print(f"[ERROR] LLM API call failed: {e}")
-            await event.respond("[AI]: Sorry, backend system down!")
+
+            # Still check session before replying with error
+            if await session_mgr.exists(sender.id):
+                await event.respond("[AI]: Sorry, backend system down!")

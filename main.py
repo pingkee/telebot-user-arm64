@@ -93,11 +93,14 @@ async def main_handler(event):
             print(f"[MANUAL REPLY] Cancelling LLM and starting silent timeout for user {user_id}")
             await session_mgr.cancel_session(user_id)
 
+            # Cancel any running LLM task
+            await session_mgr.cancel_llm_task(user_id)
+
             # Start a silent session that lasts 3 hours (10800 seconds)
             await session_mgr.start_session(user_id, STATE_SILENT, event.respond)
-
             await timers.schedule_silent_period(user_id)
         return
+
 
 
     # Authorized user — respond directly
