@@ -6,7 +6,7 @@ This service is runnable in ARM64 arch type only! configuration is required to r
 - Go to telegram and create a user bot account. Obtain your TELEGRAM_API_ID and TELEGRAM_API_HASH. (google if you dont know how)
 - Setup your own LLM and qdrant vector database endpoint
 - Ensure you have the embbedding model download to the folder `EMB_MODEL`
-- login for the first time locally to obtain the userbot_session.session file before being able to build the docker image
+- login for the first time locally to obtain the `userbot_session.session` file before being able to build the docker image
 
 ## Running locally
 - create your vitual Env (for windows and wsl)
@@ -58,7 +58,7 @@ Alternatively, you may use the docker hub to push your image to.
 ## Running on ARM64 VM
 
 Ensure you have bring over the image and docker yml file.
-Ensure that you have configure the docker-compose-telebot.yml file 
+Ensure that you have configure the `docker-compose-telebot.yml` file 
 
 Run
 ```
@@ -75,18 +75,19 @@ run `docker builder prune --all` if you have issue building
 
 ### Step 1. Serving a LLM
 1. Download Ollama docker image and transfer it to your VM
-2. Download a copy of the docker-compose.yml file for ollama (you can use the one below)
+2. Download a copy of the `docker-compose.yml` file for ollama (you can use the one below)
 3. exec into your vm to pull the model or point your volume to a external folder
 
 ### Step 2. Serving qdrant
 1. Download qdrant docker image and transfer it to your VM
-2. Download a copy of the docker-compose.yml file for qdrant (you can use the one below)
+2. Download a copy of the `docker-compose.yml` file for qdrant (you can use the one below)
 4. 
 
 ### Step 2. Serving qdrant
 1. Configure `docker-compose-telebot.yml`
 2. Download the a embedding model and point your model folder. You can use the `download_EmbModel.py` file to pull the model to the emb_model
 3. inset data to the vector database using `data_insertion.py`
+4. ensure the `userbot_session.session` file is in the save folder as the `docker-compose-telebot.yml` file
    
 ### sample docker-compsoe.yml for ollama and qdrant
 ```
