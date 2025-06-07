@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  telegram-bot:
+    image: arm64-telegram-bot:latest   # Use your built image name here
+    container_name: telegram-bot
+    environment:
+      TELEGRAM_API_ID: "123456" # your API
+      TELEGRAM_API_HASH: "3242532ASDfa4233SfAsd" # your hash generated for your API
+      QDRANT_IP: "qdrant-vector-database"  # Name for your vector database container
+      QDRANT_PORT: "6333"
+      LLM_URL: "ollama-service" # your llm endpoint IP or url
+      LLM_PORT: "11434"
+      EMB_MODEL: "/root/emb_model"
+      LLM_MODEL: "llama3.1:8b" # your ollama model name
+      # TELETHON_SESSION: userbot_session # Optional
+    volumes:
+      - ./emb_model:/root/emb_model
+      - ./telebot_code:/app
+    restart: unless-stopped

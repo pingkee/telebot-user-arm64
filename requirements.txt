@@ -1,0 +1,7 @@
+python-telegram-bot==20.8
+requests==2.31.0
+telethon==1.33.0
+qdrant-client==1.14.2
+numpy==2.0.2
+sentence-transformers==4.1.0
+httpx==0.26.0
