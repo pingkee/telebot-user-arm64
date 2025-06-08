@@ -9,12 +9,8 @@ from timers import TimerHandler
 import os
 
 # Access control
-# Zhen Xuan, Law, shuan
 AUTHORIZED_USER_IDS = [
-    # 198470618, # Zhen Xuan,
-    # 78370300336, # Law
-    # 2300993707, # shuan
-    # 758168756, # desmond ho
+    # 1234566,
     ]  # Replace with actual user IDs allowed to interact
 IGNORE_IDS = [987654321, -1001234567890]      # Blocked users or group/chat IDs
 
